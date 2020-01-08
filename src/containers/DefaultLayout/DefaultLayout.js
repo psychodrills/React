@@ -16,7 +16,7 @@ import {
   AppSidebarNav2 as AppSidebarNav,
 } from '@coreui/react';
 // sidebar nav config
-import navigation from '../../_nav';
+import navigation from './_nav_links';
 // routes config
 import routes from '../../routes';
 
@@ -46,13 +46,16 @@ class DefaultLayout extends Component {
             <AppSidebarHeader />
             <AppSidebarForm />
             <Suspense>
+              <div className="w-100">
+                <input class="form-control mr-sm-2 bg-transparent" type="search" placeholder="Search" aria-label="Search"/>
+              </div>
             <AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
             </Suspense>
             <AppSidebarFooter />
             <AppSidebarMinimizer />
           </AppSidebar>
-          <main className="main">
-            <AppBreadcrumb appRoutes={routes} router={router}/>
+          <main className="mt-2 main">
+            {/*<AppBreadcrumb appRoutes={routes} router={router}/>*/}
             <Container fluid>
               <Suspense fallback={this.loading()}>
                 <Switch>
@@ -68,7 +71,7 @@ class DefaultLayout extends Component {
                         )} />
                     ) : (null);
                   })}
-                  <Redirect from="/" to="/dashboard" />
+                  <Redirect from="/" to="/login" />
                 </Switch>
               </Suspense>
             </Container>

@@ -1,39 +1,38 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import SimpleReactValidator from 'simple-react-validator';
-import UserAuthentication from "../../../lib/api/Authentication/Auth";
+import UserAuthentication from "../../lib/api/Authentication/Auth";
 
-class Login extends Component {
+class SuperAdminLogin extends Component {
   constructor(props) {
     super(props)
     this.validator = new SimpleReactValidator();
     this.auth = new UserAuthentication();
     this.state = {
-        email: '',
-        password: '',
-        status: false
+      email: '',
+      password: '',
+      status: false
     }
   }
 
   handleChange(evt) {
     this.setState({
-        [evt.target.name]: evt.target.value
+      [evt.target.name]: evt.target.value
     })
   }
 
   submitForm() {
     if (this.validator.allValid()) {
-        this.auth.login("users/admin_login", this.state).then(data => {
-            if (data.data.request_status){
-                this.props.history.push("/dashboard")
-            }
-        })
+      this.auth.login("users/admin_login", this.state).then(data => {
+        if (data.data.request_status){
+          this.props.history.push("/theme")
+        }
+      })
     } else {
-        this.validator.showMessages();
-        // rerender to show messages for the first time
-        // you can use the autoForceUpdate option to do this automatically`
-        this.forceUpdate();
+      this.validator.showMessages();
+      // rerender to show messages for the first time
+      // you can use the autoForceUpdate option to do this automatically`
+      this.forceUpdate();
     }
   }
 
@@ -109,4 +108,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default SuperAdminLogin;

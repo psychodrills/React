@@ -1,0 +1,31 @@
+import React from 'react'
+import Service from "../../Services/Service";
+import ErrorMapping from "../../Services/ErrorMapping";
+import ToastNotification from "../../../components/Toasts/ToastNotification";
+
+class UserAuthentication {
+  constructor(){
+    this.auth_token = localStorage.getItem('accToken')
+    this.service = new Service()
+    this.error = new ErrorMapping()
+
+  }
+
+  // login action
+  login(end_point, credentials){
+      let toast = new ToastNotification()
+      return this.service.post(end_point, credentials, this.options)
+          .then(function (response) {
+              if (response.data.request_status){
+                  localStorage.setItem('accToken', response.data.auth_token)
+                  toast.simple_toast(response.data.request_message);
+                  return response
+              } else {
+                  toast.simple_toast(response.data.request_message);
+                  return response
+              }
+          })
+  }
+}
+
+export default UserAuthentication

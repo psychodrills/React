@@ -19,12 +19,39 @@ import {
 import navigation from './_nav_links';
 // routes config
 import routes from '../../routes';
+import MainSidebar from "../../lib/api/SideBars/MainSidebar";
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
 const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
 
 class DefaultLayout extends Component {
+
+  constructor(props) {
+    super(props);
+    this.mainmenu = new MainSidebar()
+    this.state = {
+      nav_list: {
+        items: []
+      }
+    }
+  }
+
+
+  componentDidMount(){
+    this.fetch_side_bar_nav_links()
+  }
+
+  fetch_side_bar_nav_links(){
+    this.mainmenu.fetch_action_tags_with_submenus().then(data => {
+      console.log(data.data)
+      if (data.data.request_status){
+        this.setState({
+          nav_list: data.data.action_tags
+        })
+      }
+    })
+  }
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
@@ -45,11 +72,11 @@ class DefaultLayout extends Component {
           <AppSidebar fixed display="lg">
             <AppSidebarHeader />
             <AppSidebarForm />
-            <Suspense>
+            <Suspense fallback={this.loading()}>
               <div className="w-100">
                 <input class="form-control mr-sm-2 bg-transparent" type="search" placeholder="Search" aria-label="Search"/>
               </div>
-            <AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
+            <AppSidebarNav navConfig={this.state.nav_list} {...this.props} router={router}/>
             </Suspense>
             <AppSidebarFooter />
             <AppSidebarMinimizer />

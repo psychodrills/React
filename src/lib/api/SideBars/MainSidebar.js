@@ -12,11 +12,13 @@ class MainSidebar {
 
   // fetch action tags and their children (main menu and sub actions)
   fetch_action_tags_with_submenus(){
-    return this.service.get("action_tags", this.header.get_header()).then(function (response) {
-      return response
-    }).catch(error => {
-      this.error.route_to_root(error)
-    })
+    if (this.error.session_status()){
+      return this.service.get("action_tags", this.header.get_header()).then(function (response) {
+        return response
+      }).catch(error => {
+        this.error.route_to_root(error)
+      })
+    }
   }
 }
 

@@ -25,7 +25,7 @@ class SuperAdminLogin extends Component {
     if (this.validator.allValid()) {
       this.auth.login("users/admin_login", this.state).then(data => {
         if (data.data.request_status){
-          this.props.history.push("/theme")
+          this.props.history.push("/sadashboard")
         }
       })
     } else {

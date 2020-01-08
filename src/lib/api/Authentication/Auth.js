@@ -26,6 +26,11 @@ class UserAuthentication {
               }
           })
   }
+
+  // sign out the session(clear localstorage)
+  signout(){
+    localStorage.removeItem('accToken')
+  }
 }
 
 export default UserAuthentication

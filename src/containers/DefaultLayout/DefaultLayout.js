@@ -15,11 +15,11 @@ import {
   AppBreadcrumb2 as AppBreadcrumb,
   AppSidebarNav2 as AppSidebarNav,
 } from '@coreui/react';
-// sidebar nav config
-import navigation from './_nav_links';
 // routes config
 import routes from '../../routes';
 import MainSidebar from "../../lib/api/SideBars/MainSidebar";
+import User from "../../views/Users/User";
+import UserAuthentication from "../../lib/api/Authentication/Auth";
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
@@ -29,6 +29,7 @@ class DefaultLayout extends Component {
 
   constructor(props) {
     super(props);
+    this.auth = new UserAuthentication()
     this.mainmenu = new MainSidebar()
     this.state = {
       nav_list: {
@@ -56,7 +57,7 @@ class DefaultLayout extends Component {
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   signOut(e) {
-    e.preventDefault()
+    this.auth.signout()
     this.props.history.push('/login')
   }
 
@@ -98,7 +99,7 @@ class DefaultLayout extends Component {
                         )} />
                     ) : (null);
                   })}
-                  <Redirect from="/" to="/login" />
+                  <Redirect from="/" to="/dashboard" />
                 </Switch>
               </Suspense>
             </Container>

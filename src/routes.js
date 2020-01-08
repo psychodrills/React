@@ -1,5 +1,9 @@
 import React from 'react';
 
+
+// import psychodrills route components
+const SADashboard = React.lazy(() => import('./views/Dashboard/SADashboard'))
+
 const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
 const Cards = React.lazy(() => import('./views/Base/Cards'));
 const Carousels = React.lazy(() => import('./views/Base/Carousels'));
@@ -38,6 +42,12 @@ const User = React.lazy(() => import('./views/Users/User'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
+  // psychodrills routes
+  {path: '/sadashboard', exact: true, name: 'Super Admin Dashboard', component: SADashboard},
+
+
+
+
   { path: '/', exact: true, name: 'Login Page' },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/theme', exact: true, name: 'Theme', component: Colors },

@@ -7,8 +7,6 @@ export default class Service{
 
     get(endpoint,options = null){
 
-    	console.log(endpoint)
-
         const url = `${apiURL}/${endpoint}`;
 
         return axios.get(url, options);

@@ -12,13 +12,11 @@ import {
   AppSidebarForm,
   AppSidebarHeader,
   AppSidebarMinimizer,
-  AppBreadcrumb2 as AppBreadcrumb,
   AppSidebarNav2 as AppSidebarNav,
 } from '@coreui/react';
 // routes config
 import routes from '../../routes';
 import MainSidebar from "../../lib/api/SideBars/MainSidebar";
-import User from "../../views/Users/User";
 import UserAuthentication from "../../lib/api/Authentication/Auth";
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
@@ -45,7 +43,6 @@ class DefaultLayout extends Component {
 
   fetch_side_bar_nav_links(){
     this.mainmenu.fetch_action_tags_with_submenus().then(data => {
-      console.log(data.data)
       if (data.data.request_status){
         this.setState({
           nav_list: data.data.action_tags

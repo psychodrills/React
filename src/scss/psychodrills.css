@@ -1,0 +1,29 @@
+/* add this for table to make it scrollable "horizontal and vertical" */
+.scrolling-table {
+  overflow-y: scroll;
+  max-height: 80vh;
+  max-width: 100vw;
+  display: block;
+}
+
+/* add this for div or any section to make it scrollable "horizontal" */
+.scrolling-container {
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+.table-head-fixed {
+  position: sticky;
+  z-index: 100;
+  top: -1px;
+}
+
+/* width custom classes for styles*/
+.w-px-200 {
+  width: 200px;
+}
+.w-px-300 {
+  width: 300px;
+}

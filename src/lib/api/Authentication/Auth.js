@@ -1,8 +1,8 @@
-import React from 'react'
 import Service from "../../Services/Service";
 import ErrorMapping from "../../Services/ErrorMapping";
 import ToastNotification from "../../../components/Toasts/ToastNotification";
 
+var toast = new ToastNotification()
 class UserAuthentication {
   constructor(){
     this.auth_token = localStorage.getItem('accToken')
@@ -13,7 +13,6 @@ class UserAuthentication {
 
   // login action
   login(end_point, credentials){
-      let toast = new ToastNotification()
       return this.service.post(end_point, credentials, this.options)
           .then(function (response) {
               if (response.data.request_status){

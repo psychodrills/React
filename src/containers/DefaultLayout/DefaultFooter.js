@@ -15,8 +15,8 @@ class DefaultFooter extends Component {
 
     return (
       <React.Fragment>
-        <span><a href="#">Psychodrills</a> &copy; 2019 psychodrills.</span>
-        <span className="ml-auto">Powered by <a href="#">Psychodrills</a></span>
+        <span><a href="www.psychodrills.com">Psychodrills</a> &copy; 2019 psychodrills.</span>
+        <span className="ml-auto">Powered by <a href="www.psychodrills.com">Psychodrills</a></span>
       </React.Fragment>
     );
   }

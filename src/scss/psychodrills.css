@@ -12,12 +12,21 @@
   height: 100%;
   overflow-y: hidden;
   white-space: nowrap;
+  justify-content: center;
 }
 
 .table-head-fixed {
   position: sticky;
   z-index: 100;
   top: -1px;
+}
+
+/* divider styles */
+.divider {
+  height: 0;
+  margin: 0.5rem 0;
+  overflow: hidden;
+  border-top: 1px solid #e4e7ea;
 }
 
 /* width custom classes for styles*/

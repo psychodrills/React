@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-const apiURL = "//localhost:3001"
+const apiURL = "//localhost:3001/api/v1"
 
 export default class Service{
 

@@ -12,8 +12,8 @@ class UserAuthentication {
   }
 
   // login action
-  login(end_point, credentials){
-      return this.service.post(end_point, credentials, this.options)
+  login(credentials){
+      return this.service.post("users/login", credentials, this.options)
           .then(function (response) {
               if (response.data.request_status){
                   localStorage.setItem('accToken', response.data.auth_token)

@@ -36,8 +36,14 @@ const BorderedTable = (props) => {
   }
 
   if (props.data != null){
-    for (let i = 0; i < props.data.length; i++) {
-      data.push(tableRow(props.data[i]))
+    if (props.data.length !== 0){
+      for (let i = 0; i < props.data.length; i++) {
+        data.push(tableRow(props.data[i]))
+      }
+    } else {
+      return (<>
+        <div>No records found</div>
+      </>)
     }
   }
 

@@ -1,5 +1,18 @@
 import React, { Component } from 'react';
-import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import {
+  Button,
+  Card,
+  CardBody,
+  CardGroup,
+  Col,
+  Container,
+  Form,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Row
+} from 'reactstrap';
 import SimpleReactValidator from 'simple-react-validator';
 import UserAuthentication from "../../../lib/api/Authentication/Auth";
 
@@ -23,7 +36,7 @@ class Login extends Component {
 
   submitForm() {
     if (this.validator.allValid()) {
-        this.auth.login("users/admin_login", this.state).then(data => {
+        this.auth.login(this.state).then(data => {
             if (data.data.request_status){
                 this.props.history.push("/dashboard")
             }

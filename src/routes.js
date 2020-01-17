@@ -12,9 +12,9 @@ const routes = [
   // psychodrills routes
   { path: '/', exact: true, name: 'Login Page' },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
-  {path: '/sadashboard', exact: true, name: 'Super Admin Dashboard', component: SADashboard},
-  {path: '/add-new-school-group', exact: true, name: 'Add New School Group', component: AddNewSchoolGroup},
-  {path: '/school-group-list', exact: true, name: 'School Group List', component: SchoolGroupList}
+  { path: '/sadashboard', exact: true, name: 'Super Admin Dashboard', component: SADashboard },
+  { path: '/add-new-school-group', exact: true, name: 'Add New School Group', component: AddNewSchoolGroup },
+  { path: '/school-group-list', exact: true, name: 'School Group List', component: SchoolGroupList }
 ];
 
 export default routes;

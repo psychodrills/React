@@ -14,38 +14,38 @@ import {
   Row
 } from 'reactstrap';
 import SimpleReactValidator from 'simple-react-validator';
-import UserAuthentication from "../../lib/api/Authentication/Auth";
+import UserAuthentication from "../../../lib/api/Authentication/Auth";
 
-class SuperAdminLogin extends Component {
+class Login extends Component {
   constructor(props) {
     super(props)
     this.validator = new SimpleReactValidator();
     this.auth = new UserAuthentication();
     this.state = {
-      user_name: '',
-      password: '',
-      status: false
+        user_name: '',
+        password: '',
+        status: false
     }
   }
 
   handleChange(evt) {
     this.setState({
-      [evt.target.name]: evt.target.value
+        [evt.target.name]: evt.target.value
     })
   }
 
   submitForm() {
     if (this.validator.allValid()) {
-      this.auth.login(this.state).then(data => {
-        if (data.data.request_status){
-          this.props.history.push("/sadashboard")
-        }
-      })
+        this.auth.login(this.state).then(data => {
+            if (data.data.request_status){
+                this.props.history.push("/dashboard")
+            }
+        })
     } else {
-      this.validator.showMessages();
-      // rerender to show messages for the first time
-      // you can use the autoForceUpdate option to do this automatically`
-      this.forceUpdate();
+        this.validator.showMessages();
+        // rerender to show messages for the first time
+        // you can use the autoForceUpdate option to do this automatically`
+        this.forceUpdate();
     }
   }
 
@@ -120,4 +120,4 @@ class SuperAdminLogin extends Component {
   }
 }
 
-export default SuperAdminLogin;
+export default Login;

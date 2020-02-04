@@ -16,6 +16,10 @@ class SchoolGroupList extends React.Component{
 
   componentDidMount(){
     this.school.fetch_school_groups().then(data => {
+      for(let i = 0;i<data.data.result_data.school_groups.length;i++){
+      let value = "http://localhost:3000/school-group-data/" + data.data.result_data.school_groups[i].id  
+      data.data.result_data.school_groups[i].group_name = <a href={value}>{data.data.result_data.school_groups[i].group_name}</a>
+      }
       this.setState({
         headings: data.data.result_data.heads,
         data: data.data.result_data.school_groups

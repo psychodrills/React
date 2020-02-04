@@ -58,12 +58,17 @@ class DefaultLayout extends Component {
     this.props.history.push('/login')
   }
 
+  viewMessages(){
+    this.props.history.push('/view-messages')
+  }
+  
+
   render() {
     return (
       <div className="app">
         <AppHeader fixed>
           <Suspense  fallback={this.loading()}>
-            <DefaultHeader onLogout={e=>this.signOut(e)}/>
+            <DefaultHeader onLogout={e=>this.signOut(e)} viewMessages={e=>this.viewMessages()}/>
           </Suspense>
         </AppHeader>
         <div className="app-body">

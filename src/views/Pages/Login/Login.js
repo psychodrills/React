@@ -22,7 +22,7 @@ class Login extends Component {
     this.validator = new SimpleReactValidator();
     this.auth = new UserAuthentication();
     this.state = {
-        email: '',
+        user_name: '',
         password: '',
         status: false
     }
@@ -68,14 +68,13 @@ class Login extends Component {
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
-                          placeholder="UserName or Email"
-                          type="email"
-                          name="email"
+                          placeholder="UserName"
+                          name="user_name"
                           onChange={evt => this.handleChange(evt)}
                         />
                       </InputGroup>
                       <span className="text-danger f-size-10">
-                          {this.validator.message('email', this.state.email, 'required|email')}
+                          {this.validator.message('user_name', this.state.user_name, 'required')}
                       </span>
                       <InputGroup className="mb-2">
                         <InputGroupAddon addonType="prepend">

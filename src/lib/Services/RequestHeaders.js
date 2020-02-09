@@ -3,9 +3,11 @@
 
 class RequestHeaders {
     constructor(){
+        this.hostname = localStorage.getItem('hostname')
         this.auth_token = localStorage.getItem('accToken')
         this.defaultOptions = {
-            headers: {Authorization: this.auth_token ? this.auth_token.toString() : ''}
+            headers: {Authorization: this.auth_token ? this.auth_token.toString() : '',
+            hostname: this.hostname ? this.hostname : ''}
         };
         this.options = {
             ...this.defaultOptions,

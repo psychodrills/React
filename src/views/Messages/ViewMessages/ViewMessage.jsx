@@ -7,10 +7,7 @@ import {
     Col,
     Collapse,
     Fade,
-    Form,
     FormGroup,
-    Input,
-    Label,
     Row,
 } from 'reactstrap';
 

@@ -6,7 +6,6 @@ import {
     CardBody,
     CardHeader,
     Col,
-    Collapse,
     Fade,
     Form,
     FormGroup,
@@ -46,11 +45,11 @@ export default class SchoolGroupData extends React.Component {
         this.update_country = this.update_country.bind(this);
     }
     handleChange(evt) {
-        this.state.schoolGroup[evt.target.name] = evt.target.value
+        this.setstate.schoolGroup[evt.target.name] = evt.target.value
     }
 
     update_country(val) {
-        this.state.schoolGroup.country = val
+        this.setstate.schoolGroup.country = val
     }
     editMode() {
         this.setState({
@@ -64,7 +63,7 @@ export default class SchoolGroupData extends React.Component {
     componentDidMount() {
         this.school.fetch_school_groups().then(data => {
             for (let i = 0; i < data.data.result_data.school_groups.length; i++) {
-                if (data.data.result_data.school_groups[i].id == this.state.userId) {
+                if (data.data.result_data.school_groups[i].id === this.state.userId) {
                     this.setState({
                         schoolGroup: data.data.result_data.school_groups[i]
                     })
@@ -74,7 +73,7 @@ export default class SchoolGroupData extends React.Component {
         })
     }
     render() {
-        if (this.state.isEditMode == false) {
+        if (this.state.isEditMode === false) {
             return (
                 <div className="animated fadeIn shadow-lg">
                     <Row>

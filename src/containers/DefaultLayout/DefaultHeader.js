@@ -12,9 +12,6 @@ const propTypes = {
 const defaultProps = {};
 
 class DefaultHeader extends Component {
-  constructor(props){
-    super(props);
-  }
 
   
 

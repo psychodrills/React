@@ -7,7 +7,8 @@ const AddNewSchoolGroup = React.lazy(() => import('./views/SuperAdminSection/Add
 const SchoolGroupList = React.lazy(() => import('./views/SuperAdminSection/SchoolGroup/SchoolGroupList'));
 const Dashboard = React.lazy(() => import('./views/Dashboard'));
 const ViewMessage = React.lazy(() => import('./views/Messages/ViewMessages/ViewMessage'));
-const SchoolGroupData = React.lazy(() => import('./views/SuperAdminSection/SchoolGroup/SchoolGroupData'))
+const SchoolGroupData = React.lazy(() => import('./views/SuperAdminSection/SchoolGroup/SchoolGroupData'));
+const SchoolData = React.lazy(() => import('./views/SuperAdminSection/SchoolData'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -18,7 +19,8 @@ const routes = [
   {path: '/add-new-school-group', exact: true, name: 'Add New School Group', component: AddNewSchoolGroup},
   {path: '/school-group-list', exact: true, name: 'School Group List', component: SchoolGroupList},
   {path: '/view-messages', exact: true, name: 'View Message', component:ViewMessage },
-  {path: '/school-group-data/:Id', exact:true, name: 'School Group Data', component:SchoolGroupData}
+  {path: '/school-group-data/:Id', exact:true, name: 'School Group Data', component:SchoolGroupData},
+  {path: '/school-data', exact:true, name:'School Data', component:SchoolData}
 ];
 
 export default routes;

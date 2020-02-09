@@ -7,12 +7,11 @@ const loading = () => <div className="animated fadeIn pt-3 text-center">Loading.
 // Containers
 const DefaultLayout = React.lazy(() => import('./containers/DefaultLayout/DefaultLayout'));
 
-// Pages
-const SuperAdminLogin = React.lazy(() => import('./views/Authentication/SuperAdminLogin'));
-const Login = React.lazy(() => import('./views/Pages/Login'));
-const Register = React.lazy(() => import('./views/Pages/Register'));
-const Page404 = React.lazy(() => import('./views/Pages/Page404'));
-const Page500 = React.lazy(() => import('./views/Pages/Page500'));
+// Authentication
+const Login = React.lazy(() => import('./views/Authentication/Login'));
+const Register = React.lazy(() => import('./views/Authentication/Register'));
+const Page404 = React.lazy(() => import('./views/Authentication/Page404'));
+const Page500 = React.lazy(() => import('./views/Authentication/Page500'));
 
 class App extends Component {
 
@@ -21,11 +20,10 @@ class App extends Component {
       <BrowserRouter>
           <React.Suspense fallback={loading()}>
             <Switch>
-              <Route exact path="/s-a-l" name="Login Page" render={props => localStorage.getItem('accToken') ? <DefaultLayout {...props}/> : <SuperAdminLogin {...props}/>} />
               <Route exact path="/login" name="Login Page" render={props => localStorage.getItem('accToken') ? <DefaultLayout {...props}/> : <Login {...props}/>} />
               <Route exact path="/register" name="Register Page" render={props => localStorage.getItem('accToken') ? <DefaultLayout {...props}/> : <Register {...props}/>} />
-              <Route exact path="/404" name="Page 404" render={props => localStorage.getItem('accToken') ? <DefaultLayout {...props}/> : <Page404 {...props}/>} />
-              <Route exact path="/500" name="Page 500" render={props => localStorage.getItem('accToken') ? <DefaultLayout {...props}/> : <Page500 {...props}/>} />
+              <Route exact path="/404" name="Page 404" render={props => <Page404 {...props}/>} />
+              <Route exact path="/500" name="Page 500" render={props => <Page500 {...props}/>} />
               <Route path="/" name="Home" render={props => <DefaultLayout {...props}/>} />
             </Switch>
           </React.Suspense>

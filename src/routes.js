@@ -9,6 +9,8 @@ const Dashboard = React.lazy(() => import('./views/Dashboard'));
 const ViewMessage = React.lazy(() => import('./views/Messages/ViewMessages/ViewMessage'));
 const SchoolGroupData = React.lazy(() => import('./views/SuperAdminSection/SchoolGroup/SchoolGroupData'));
 const SchoolData = React.lazy(() => import('./views/SuperAdminSection/SchoolData'));
+const AddFinancialYear = React.lazy(() => import('./views/SuperAdminSection/Years/AddFinancialYear'))
+const AddAcademicYear = React.lazy(() => import('./views/SuperAdminSection/Years/AddAcademicYear'))
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -20,7 +22,9 @@ const routes = [
   {path: '/school-group-list', exact: true, name: 'School Group List', component: SchoolGroupList},
   {path: '/view-messages', exact: true, name: 'View Message', component:ViewMessage },
   {path: '/school-group-data/:Id', exact:true, name: 'School Group Data', component:SchoolGroupData},
-  {path: '/school-data', exact:true, name:'School Data', component:SchoolData}
+  {path: '/school-data', exact:true, name:'School Data', component:SchoolData},
+  {path: '/financialyear-new', exact:true, name:'Add FinancialYear', component:AddFinancialYear},
+  {path: '/academicyear-new', exact:true, name:'Add AcademicYear', component:AddAcademicYear}
 ];
 
 export default routes;

@@ -36,3 +36,7 @@
 .w-px-300 {
   width: 300px;
 }
+
+.TimezonePicker{
+  color: red !important;
+}

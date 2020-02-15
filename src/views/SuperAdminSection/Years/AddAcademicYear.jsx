@@ -16,9 +16,12 @@ import {
     Form
 
 } from 'reactstrap';
+import SimpleReactValidator from 'simple-react-validator';
+
 class AddAcademicYear extends React.Component {
     constructor(props) {
         super(props)
+        this.validator = new SimpleReactValidator();
         this.state = {
             startDate: null,
             endDate: null,
@@ -49,6 +52,15 @@ class AddAcademicYear extends React.Component {
     }
     submitForm() {
         console.log(this.financialYearData)
+        if (this.validator.allValid()) {
+            alert('Submitted Successfully')
+        }
+        else {
+            this.validator.showMessages();
+            // rerender to show messages for the first time
+            // you can use the autoForceUpdate option to do this automatically`
+            this.forceUpdate()
+        }
     }
     toggleFinancialYearDetails() {
         this.setState({ collapse_financial_year: !this.state.collapse_financial_year })
@@ -77,18 +89,27 @@ class AddAcademicYear extends React.Component {
                                                         <Label>Name</Label>
                                                         <Input placeholder="Please enter Academic year name" name={'name'} onChange={e => this.handleChange(e)} />
                                                     </FormGroup>
+                                                    <span className="text-danger">
+                                                        {this.validator.message('Name', this.financialYearData.name, 'required|alpha_space')}
+                                                    </span>
                                                 </Col>
                                                 <Col xs="4">
                                                     <FormGroup>
                                                         <Label>Start Date</Label><br></br>
-                                                        <DatePicker dateFormat="dd/MM/yyyy" placeholderText=" Please select startdate" selected={this.state.startDate} onChange={date => this.setStartDate(date)} maxDate={this.state.endDate} />
+                                                        <DatePicker className="form-control" dateFormat="dd/MM/yyyy" placeholderText=" Please select startdate" selected={this.state.startDate} onChange={date => this.setStartDate(date)} maxDate={this.state.endDate} />
                                                     </FormGroup>
+                                                    <span className="text-danger">
+                                                        {this.validator.message('Name', this.financialYearData.name, 'required|required')}
+                                                    </span>
                                                 </Col>
                                                 <Col xs="4">
                                                     <FormGroup>
                                                         <Label>End Date</Label><br></br>
-                                                        <DatePicker dateFormat="dd/MM/yyyy" placeholderText=" Please select enddate" selected={this.state.endDate} onChange={date => this.setEndDate(date)} minDate={this.state.startDate} />
+                                                        <DatePicker className="form-control" dateFormat="dd/MM/yyyy" placeholderText=" Please select enddate" selected={this.state.endDate} onChange={date => this.setEndDate(date)} minDate={this.state.startDate} />
                                                     </FormGroup>
+                                                    <span className="text-danger">
+                                                        {this.validator.message('Name', this.financialYearData.name, 'required|required')}
+                                                    </span>
                                                 </Col>
                                             </FormGroup>
                                         </Form>

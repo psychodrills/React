@@ -5,7 +5,6 @@ import {
     CardBody,
     CardHeader,
     Col,
-    // Collapse,
     Fade,
     Form,
     FormGroup,
@@ -16,23 +15,31 @@ import {
 import SimpleReactValidator from 'simple-react-validator';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import TimezonePicker from 'react-timezone';
+import TimezonePicker from 'react-bootstrap-timezone-picker';
+import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min.css';
 import { CountryDropdown } from 'react-country-region-selector';
 import SelectCurrency from 'react-select-currency'
-import { ChromePicker } from 'react-color'
-// const onSelectedCurrency = currencyAbbrev => {
-//     debug(`Selected ${currencyAbbrev}`)
-// }
+import getSymbolFromCurrency from 'currency-symbol-map'
+import { SketchPicker } from 'react-color';
 class SchoolData extends React.Component {
     constructor(props) {
         super(props);
         this.validator = new SimpleReactValidator();
+        this.state = {
+            country: '',
+            displayColorPicker: false,
+            languages: [],
+            date: '',
+            currency_symbol: '',
+            time_zone: '',
+            background: '#fff',
+        }
         this.schoolData = {
             school_name: '',
             address: '',
             phone_number: '',
             school_email: '',
-            dates: new Date(),
+            date: '',
             date_seperator: '',
             language: '',
             time_zone: '',
@@ -42,30 +49,38 @@ class SchoolData extends React.Component {
             precision_count: '',
             theme_color: ''
         };
-        this.state = {
-            displayColorPicker: false,
-            languages: [],
-            startDate: new Date()
-        }
         this.handleChange = this.handleChange.bind(this);
     }
-
     handleChange(evt) {
-        console.log(evt)
-        // this.schoolData[evt.target.name] = evt.target.value
+        this.schoolData[evt.target.name] = evt.target.value
     }
     update_country(val) {
+        this.setState({
+            country: val
+        })
         this.schoolData.country = val
     }
-    settimezone(val) {
+    setSymbolfromCurrency(val) {
+        this.schoolData.currrency_code = val.target.value
+        this.schoolData.currency_symbol = getSymbolFromCurrency(val.target.value)
+        this.setState({ currency_symbol: this.schoolData.currency_symbol })
+    }
+    setTimezone(val) {
+        this.setState({
+            time_zone: val
+        })
         this.schoolData.time_zone = val
     }
+    setDate(val) {
+        this.setState({ date: val })
+        this.schoolData.date = val
+    }
+    handleChangeComplete = (color) => {
+        this.setState({ background: color.hex });
+        this.schoolData.theme_color = color.hex
+    };
     handleClick = () => {
         this.setState({ displayColorPicker: !this.state.displayColorPicker })
-    };
-
-    handleClose = () => {
-        this.setState({ displayColorPicker: false })
     };
     submitForm() {
         console.log(this.schoolData)
@@ -80,17 +95,6 @@ class SchoolData extends React.Component {
         }
     }
     render() {
-        // const popover = {
-        //     position: 'absolute',
-        //     zIndex: '2',
-        // }
-        // const cover = {
-        //     position: 'fixed',
-        //     top: '0px',
-        //     right: '0px',
-        //     bottom: '0px',
-        //     left: '0px',
-        // }
         return (
             <div className="animated fadeIn shadow-lg">
                 <Row>
@@ -118,7 +122,7 @@ class SchoolData extends React.Component {
                                             <Input placeholder="Enter your School Address" name={'address'} onChange={e => this.handleChange(e)} />
                                         </FormGroup>
                                         <span className="text-danger">
-                                            {this.validator.message('address', this.schoolData.address, 'required|alpha_space')}
+                                            {this.validator.message('address', this.schoolData.address, 'required|required')}
                                         </span>
                                         <FormGroup row className="my-0 mt-2">
                                             <Col xs="6">
@@ -143,76 +147,44 @@ class SchoolData extends React.Component {
                                         <FormGroup row className="my-0 mt-2">
                                             <Col xs="4">
                                                 <FormGroup>
-                                                    <Label htmlFor="date">Date</Label><br></br>
-                                                    {/* <Input placeholder="Select your Date" name={'date'} onChange={e => this.handleChange(e)} DatePicker /> */}
-                                                    <DatePicker name={'dates'} className="form-control"/>
-                                                </FormGroup>
-                                                <span className="text-danger">
-                                                    {this.validator.message('date', this.schoolData.date, 'required|date')}
-                                                </span>
-                                            </Col>
-                                            <Col xs="4">
-                                                <FormGroup>
-                                                    <Label htmlFor="date">Date Seperator</Label>
-                                                    <select className="form-control" name={'date_seperator'} onChange={e => this.handleChange(e)}>
-                                                        <option>--Choose--</option>
-                                                        <option>-</option>
-                                                        <option>/</option>
-                                                    </select>
-                                                </FormGroup>
-                                            </Col>
-                                            <Col xs="4">
-                                                <FormGroup>
                                                     <Label htmlFor="language">Language</Label>
                                                     <select className="form-control" name={'language'} onChange={e => this.handleChange(e)}>
-                                                        <option>--Choose--</option>
+                                                        <option >--Choose--</option>
                                                         <option >English</option>
                                                         <option >Arabic</option>
                                                         <option >Spanish</option>
                                                         <option >French</option>
                                                     </select>
                                                 </FormGroup>
-                                            </Col>
-                                        </FormGroup>
-                                        <FormGroup row className="my-0 mt-2">
-                                            <Col xs="4">
-                                                <FormGroup className="mb-0">
-                                                    <Label htmlFor="time-zone">Timezone</Label><br></br>
-                                                    <TimezonePicker name={'time_zone'}
-                                                        onChange={e => this.settimezone(e)}
-                                                    ></TimezonePicker>
-                                                </FormGroup>
+                                                <span className="text-danger">
+                                                    {this.validator.message('language', this.schoolData.language, 'required|alpha_space')}
+                                                </span>
                                             </Col>
                                             <Col xs="4">
                                                 <FormGroup className="mb-0">
                                                     <Label htmlFor="postal-code">Country</Label>
-                                                    <CountryDropdown className="form-control"
-                                                        name="country"
-                                                        onChange={(val) => this.update_country(val)}
-                                                    >
-                                                    </CountryDropdown>
+                                                    <CountryDropdown className="form-control" value={this.state.country}
+                                                        onChange={val => this.update_country(val)}> </CountryDropdown>
                                                 </FormGroup>
+                                                <span className="text-danger">
+                                                    {this.validator.message('country', this.schoolData.country, 'required|alpha_space')}
+                                                </span>
                                             </Col>
                                             <Col xs="4">
                                                 <FormGroup className="mb-0">
                                                     <Label htmlFor="currncy-symbol">Currency Code</Label>
-                                                    <SelectCurrency value={'USD'} />
+                                                    <SelectCurrency className="form-control" name={'currrency_code'} onChange={e => this.setSymbolfromCurrency(e)}></SelectCurrency>
                                                 </FormGroup>
+                                                <span className="text-danger">
+                                                    {this.validator.message('currrency_code', this.schoolData.currrency_code, 'required|required')}
+                                                </span>
                                             </Col>
                                         </FormGroup>
                                         <FormGroup row className="my-0 mt-2">
                                             <Col xs="4">
                                                 <FormGroup>
                                                     <Label htmlFor="currency_symbol">Currency Symbol</Label>
-                                                    <select className="form-control" name={'currrency_code'} onChange={e => this.handleChange(e)}>
-                                                        <option>--Choose--</option>
-                                                        <option>{'\u0024'}</option>
-                                                        <option>{'\u00A2'}</option>
-                                                        <option>{'\u00A3'}</option>
-                                                        <option>{'\u00A5'}</option>
-                                                        <option>{'\u20A0'}</option>
-                                                        <option>{'\u20B9'}</option>
-                                                    </select>
+                                                    <Input readOnly value={this.state.currency_symbol} />
                                                 </FormGroup>
                                             </Col>
                                             <Col xs="4">
@@ -226,26 +198,52 @@ class SchoolData extends React.Component {
                                                         <option>4</option>
                                                     </select>
                                                 </FormGroup>
+                                                <span className="text-danger">
+                                                    {this.validator.message('precision_count', this.schoolData.precision_count, 'required|integer')}
+                                                </span>
+                                            </Col>
+                                            <Col xs="4">
+                                                <FormGroup>
+                                                    <Label htmlFor="date">Date</Label><br></br>
+                                                    <DatePicker dateFormat="dd/MM/yyyy" selected={this.state.date} onChange={e => this.setDate(e)} className="form-control" />
+                                                </FormGroup>
+                                                <span className="text-danger">
+                                                    {this.validator.message('date', this.schoolData.date, 'required|required')}
+                                                </span>
+                                            </Col>
+                                        </FormGroup>
+                                        <FormGroup row className="my-0 mt-2">
+                                            <Col xs="4">
+                                                <FormGroup>
+                                                    <Label htmlFor="date">Date Seperator</Label>
+                                                    <select className="form-control" name={'date_seperator'} onChange={e => this.handleChange(e)}>
+                                                        <option>--Choose--</option>
+                                                        <option>-</option>
+                                                        <option>/</option>
+                                                    </select>
+                                                </FormGroup>
+                                                <span className="text-danger">
+                                                    {this.validator.message('date seperator', this.schoolData.date_seperator, 'required|required')}
+                                                </span>
+                                            </Col>
+                                            <Col xs="4">
+                                                <FormGroup className="mb-0">
+                                                    <Label htmlFor="time-zone">Timezone</Label><br></br>
+                                                    <TimezonePicker placeholder="Select TimeZone" value={this.state.time_zone} onChange={e => this.setTimezone(e)} />
+                                                </FormGroup>
+                                                <span className="text-danger">
+                                                    {this.validator.message('timezone', this.schoolData.time_zone, 'required|required')}
+                                                </span>
                                             </Col>
                                             <Col xs="4">
                                                 <FormGroup>
                                                     <Label htmlFor="precision_count">Theme Color</Label><br></br>
-                                                    <button onClick={this.handleClick}>Pick Color</button>
-                                                    {this.state.displayColorPicker ? <ChromePicker/> : null} 
-                                                    {/* <div style={popover}>
-                                                        <div style={cover} onClick={this.handleClose} />
-                                                        <ChromePicker />
-                                                    </div>
-                                                     : null} */}
-
-                                                    {/* <select className="form-control" name={'precision_count'} onChange={e => this.handleChange(e)}>
-                                                        <option>--Choose--</option>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                    </select> */}
+                                                    <Button color="primary" onClick={() => this.handleClick()}>Pick Color</Button>
+                                                    {this.state.displayColorPicker ? <SketchPicker color={this.state.background} onChangeComplete={this.handleChangeComplete} /> : null}
                                                 </FormGroup>
+                                                <span className="text-danger">
+                                                    {this.validator.message('theme color', this.schoolData.theme_color, 'required|required')}
+                                                </span>
                                             </Col>
                                         </FormGroup>
                                     </Form>
@@ -266,5 +264,10 @@ class SchoolData extends React.Component {
         )
     }
 }
+
+// render(
+//     <ColorPicker defaultValue='#452135'/>,
+//     document.getElementById('content')
+//   )
 
 export default SchoolData
